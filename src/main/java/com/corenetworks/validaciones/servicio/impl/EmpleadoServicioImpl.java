@@ -15,7 +15,6 @@ public class EmpleadoServicioImpl extends CRUDImpl<Empleado,Integer>implements I
     private IEmpleadoRepositorio repo;
     @Override
     protected IGenericoRepositorio<Empleado, Integer> getRepo() {
-
         return repo;
     }
 }
