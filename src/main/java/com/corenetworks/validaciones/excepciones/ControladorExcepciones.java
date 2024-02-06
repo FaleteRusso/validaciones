@@ -28,6 +28,19 @@ public class ControladorExcepciones extends ResponseEntityExceptionHandler {
                request.getDescription(false));
         return new ResponseEntity<>(e1,HttpStatus.BAD_REQUEST);
     }
-
+    @ExceptionHandler(ExcepcionPersonalizadaNoEncontrado.class)
+    public ResponseEntity<ExcepcionRespuesta>catchDeNoEncontrado(ExcepcionPersonalizadaNoEncontrado ex, WebRequest peticion) {
+//1. Crear un objeto de Excepcion Respuesta
+        ExcepcionRespuesta e1=new ExcepcionRespuesta(LocalDateTime.now(),ex.getMessage(),peticion.getDescription(false));
+        //2. Devolverla
+        return  new ResponseEntity<>(e1, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ExcepcionRespuesta>catchTodasLasExcepciones(Exception ex, WebRequest peticion){
+        //1. Crear un objeto de Excepcion Respuesta
+        ExcepcionRespuesta e1=new ExcepcionRespuesta(LocalDateTime.now(),ex.getMessage(),peticion.getDescription(false));
+        //2. Devolverla
+        return  new ResponseEntity<>(e1, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }
